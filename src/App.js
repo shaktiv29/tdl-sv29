@@ -7,11 +7,13 @@ import axios from 'axios';
 import { useRef, useState } from 'react';
 import { TaskMaker } from './TaskMaker';
 import { useEffect } from 'react';
+import { IntersectingCirclesSpinner } from 'react-epic-spinners';
 
 function App() {
   const [tasks,modifytasks] = useState([])
   const [newdata,modifynewdata] = useState('')
   const [outputtask,changeotask] = useState([])
+  const [loading, setLoading] = useState(true)
   const toUpdate = useRef(true)
   const initialDataFetch = useRef(true)
   const handleSubmit = (e)=>{
@@ -35,6 +37,7 @@ function App() {
       axios.get('https://tdl-backend-sv29.herokuapp.com/readtasks')
       .then((res)=>{
         modifytasks([...res.data])
+        setLoading(false)
       })
       .catch((e)=>{
         alert(e)
@@ -71,7 +74,9 @@ function App() {
       <Button variant="contained" color="secondary" type="submit"  endIcon={<AddCircle />} onClick={handleSubmit}>Add Task</Button>
       </Card>
       <Card className="task-list">
-        { (tasks.length === 0) ?
+        { (loading) ? 
+        <IntersectingCirclesSpinner color="#ff1d5e" style={{margin:'0px auto'}} /> :
+         (tasks.length === 0) ?
         <Typography variant="h5" style={{color: '#b1006a'}} align="center">
         Add your First Task in the list now. 😁
         </Typography>
