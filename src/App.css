@@ -4,6 +4,11 @@
     text-align: center;
 }
 
+.task-data {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .inputtask {
     margin: 10px;
     width: 60%;

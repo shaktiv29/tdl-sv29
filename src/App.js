@@ -17,7 +17,6 @@ function App() {
   const toUpdate = useRef(true)
   const initialDataFetch = useRef(true)
   const handleSubmit = (e)=>{
-    if(e.key === "Enter"){
     if(!newdata)return;
     const newtask = {idbrowser: new Date().getTime().toString(),data:newdata}
     modifytasks([...tasks, newtask]);
@@ -30,7 +29,6 @@ function App() {
     .catch((e)=>{
       alert(e)
     })
-    }
   }
   useEffect(()=>{
     if(initialDataFetch.current){
@@ -62,16 +60,16 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Typography variant="h3" style={{color: '#b1006a'}} align="center">
+        <Typography variant="h3" style={{color: '#b1006a', marginTop:'3%'}} align="center">
         Todo List
         </Typography>
       </header>
       <Card className="input-method">
-      <Input type="text" className="inputtask" placeholder="Write Your Task Here" value={newdata} onChange={(e)=>{
+      <Input type="text" className="inputtask" placeholder="Write Your Task Here"  inputProps={{ maxLength: 80 }} value={newdata} onChange={(e)=>{
         modifynewdata(e.target.value)
       }
-      } onKeyPress= {handleSubmit}></Input>
-      <Button variant="contained" color="secondary" type="submit"  endIcon={<AddCircle />} onClick={handleSubmit}>Add Task</Button>
+      } onKeyPress= {(e)=>{if(e.key === "Enter"){handleSubmit()}}}></Input>
+      <Button variant="contained" color="secondary"  endIcon={<AddCircle />} onClick={handleSubmit}>Add Task</Button>
       </Card>
       <Card className="task-list">
         { (loading) ? 

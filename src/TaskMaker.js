@@ -14,10 +14,10 @@ export function TaskMaker(props){
     return (
         <Card className="task" style= {{backgroundColor:"#f0e9e9"}}>
               { ustatus ?
-              <span id={'task-number-'+props.index}>
+              <span className="task-data">
               {uvalue}
               </span> :
-            <Input type="text" className="inputtask" id={"inputboxof"+props.index} value={uvalue} onChange={(e)=>{
+            <Input type="text" className="inputtask" id={"inputboxof"+props.index} value={uvalue} inputProps={{ maxLength: 80 }} onChange={(e)=>{
                     Updateuvalue(e.target.value)}}/>
                 }
                 { ustatus ?
